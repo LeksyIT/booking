@@ -9,8 +9,8 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDto {
-    private long roleId;
-    private String roleName;
-    private Collection<UserDto> users;
+public class ResourceDTO {
+    private long Id;
+    private String resourceTitle;
+    private Collection<StartDTO> starts;
 }

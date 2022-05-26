@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    private long userId;
-    private String login;
-    private String password;
-    private Collection<RoleDto> roles;
+public class UserDTO {
+    private long Id;
+    private String userLogin;
+    private String userPassword;
+    private Collection<RoleDTO> userRoles;
 }

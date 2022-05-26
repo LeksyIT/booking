@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DurationDto {
-    private Long durationId;
-    private StartDto start;
+public class DurationDTO {
+    private Long Id;
+    private StartDTO start;
     private long durationInterval;
 }

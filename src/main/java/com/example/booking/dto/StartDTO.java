@@ -10,9 +10,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StartDto {
-    private long startId;
-    private Collection<ResourceDto> resource;
-    private DurationDto duration;
+public class StartDTO {
+    private long Id;
+    private Collection<ResourceDTO> resource;
+    private DurationDTO duration;
     private Date startDate;
 }
