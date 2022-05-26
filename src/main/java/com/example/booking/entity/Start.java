@@ -15,23 +15,20 @@ import java.util.Date;
 @NoArgsConstructor
 public class Start {
 
-    public Start(Collection<Resource> resource, Duration duration, Date date) {
-        this.resource = resource;
-        this.duration = duration;
+    public Start(Date date, Event event) {
         this.date = date;
+        this.event = event;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
-    private Collection<Resource> resource;
-
-    @OneToOne(mappedBy = "start", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Duration duration;
-
     @Column(name = "start_date")
     private Date date;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "event_id")
+    private Event event;
 }

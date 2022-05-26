@@ -1,5 +1,6 @@
 package com.example.booking.dto;
 
+import com.example.booking.entity.Event;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,6 @@ import java.util.Collection;
 @NoArgsConstructor
 public class ResourceDTO {
     private long Id;
+    private Event event;
     private String resourceTitle;
-    private Collection<StartDTO> starts;
 }

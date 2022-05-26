@@ -13,20 +13,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Duration {
 
-    public Duration(Start start,long interval) {
-        this.start = start;
+    public Duration(long interval, Event event) {
         this.interval = interval;
+        this.event = event;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "start_id")
-    private Start start;
-
     @Column(name = "interval")
     private long interval;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "event_id")
+    private Event event;
 }

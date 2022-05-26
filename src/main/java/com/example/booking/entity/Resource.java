@@ -14,9 +14,9 @@ import java.util.Collection;
 @NoArgsConstructor
 public class Resource {
 
-    public Resource(String title, Collection<Start> starts) {
+    public Resource(String title, Event event) {
         this.title = title;
-        this.starts = starts;
+        this.event = event;
     }
 
     @Id
@@ -26,7 +26,8 @@ public class Resource {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany
-    private Collection<Start> starts;
-
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "event_id")
+    private Event event;
 }
