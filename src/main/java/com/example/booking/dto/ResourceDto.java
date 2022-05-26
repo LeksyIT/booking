@@ -10,6 +10,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResourceDto {
-    private String title;
+    private long resourceId;
+    private String resourceTitle;
     private Collection<StartDto> starts;
 }

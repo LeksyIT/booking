@@ -10,6 +10,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleDto {
-    private String name;
+    private long roleId;
+    private String roleName;
     private Collection<UserDto> users;
 }

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Start {
 
-    public Start(Resource resource, Duration duration, Date date) {
+    public Start(Collection<Resource> resource, Duration duration, Date date) {
         this.resource = resource;
         this.duration = duration;
         this.date = date;
@@ -24,9 +25,8 @@ public class Start {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "resource_id", nullable = false)
-    private Resource resource;
+    @ManyToMany
+    private Collection<Resource> resource;
 
     @OneToOne(mappedBy = "start", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

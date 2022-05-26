@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DurationDto {
+    private Long durationId;
     private StartDto start;
-    private long interval;
+    private long durationInterval;
 }

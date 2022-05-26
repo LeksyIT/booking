@@ -26,7 +26,7 @@ public class Resource {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy="resource")
+    @ManyToMany
     private Collection<Start> starts;
 
 }

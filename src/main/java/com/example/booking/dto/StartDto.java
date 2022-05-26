@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class StartDto {
-    private ResourceDto resource;
+    private long startId;
+    private Collection<ResourceDto> resource;
     private DurationDto duration;
-    private Date date;
+    private Date startDate;
 }
