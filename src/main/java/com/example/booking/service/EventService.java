@@ -17,9 +17,13 @@ public interface EventService {
 
     List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable);
 
-    Specification<Event> settingSpecification();
+    Specification<Event> settingSpecification(String userName);
 
     Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable);
+
+    List<Integer> preparePageInt(int current, int totalPages);
+
+    String getUserName(Long id);
 
     boolean release(Long id);
 

@@ -15,5 +15,5 @@ public class EventDTO {
     private Date endTime;
     private String resourceTitle;
     private Date startTime;
-//    private User user;
+    private String userName;
 }

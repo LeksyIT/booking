@@ -2,6 +2,7 @@ package com.example.booking.controller;
 
 import com.example.booking.dto.EventDTO;
 import com.example.booking.entity.Event;
+import com.example.booking.service.UserService;
 import com.example.booking.service.impl.EventServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import java.util.List;
 public class EventController {
 
     private final EventServiceImpl eventService;
+    private final UserService userService;
 
     private static final String EVENT = "event";
     private static final String EVENTS = "events";
@@ -30,13 +32,18 @@ public class EventController {
                                    EventDTO eventDTO,
                                    Pageable pageable) {
 
-        Specification<Event> specification = eventService.settingSpecification();
+
+        Specification<Event> specification = eventService.settingSpecification(userService.getUserName());
+        Page<Event> modelsPages = eventService.getEventWithPagingAndFiltering(specification, pageable);
         List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
 
         model.addAttribute(EVENTS, eventDTOList);
-        System.out.println(eventDTOList);
         model.addAttribute(EVENT, eventDTO);
-        return "append-event";
+        model.addAttribute("userName", userService.getUserName());
+        model.addAttribute("currentPage", pageable.getPageNumber());
+        model.addAttribute("pageNumbers", eventService.preparePageInt(pageable.getPageNumber(), modelsPages.getTotalPages()));
+
+        return "event";
     }
 
 

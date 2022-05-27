@@ -29,10 +29,13 @@ public class Event {
     @Column(name = "end_time")
     private Date endTime;
 
-    @Column(name = "resourceTitle")
+    @Column(name = "resource_title")
     private String resourceTitle;
 
     @Column(name = "start_time")
     private Date startTime;
+
+    @Column(name = "user_name")
+    private String userName;
 
 }
