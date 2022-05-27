@@ -10,10 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface EventMapper {
-    @Mapping(target = "resourceTitle", source = "resource.title")
+
     EventDTO toEvenDTO(Event event);
 
-    @Mapping(target = "title", source = "resourceDTO.resourceTitle")
     Event toEvent(EventDTO eventDTO);
 
     List<EventDTO> toEvenDTO(List<Event> eventList);

@@ -12,5 +12,5 @@ import java.util.Collection;
 public class RoleDTO {
     private long Id;
     private String roleName;
-    private Collection<UserDTO> users;
+    private Collection<UserRegistrationDTO> users;
 }

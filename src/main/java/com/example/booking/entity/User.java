@@ -14,11 +14,10 @@ import java.util.Collection;
 @Table(name = "users")
 public class User {
 
-    public User(String login, String password, Collection<Role> roles, Event event) {
+    public User(String login, String password, Collection<Role> roles) {
         this.login = login;
         this.password = password;
         this.roles = roles;
-        this.event = event;
     }
 
     @Id
@@ -34,7 +33,4 @@ public class User {
     @ManyToMany
     private Collection<Role> roles;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "event_id", referencedColumnName = "id")
-    private Event event;
 }

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "event")
@@ -13,29 +14,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Event {
 
-    public Event(Start start, Duration duration, Boolean free, Resource resource, User user) {
-        this.start = start;
+    public Event(Date startTime, Date duration,String resourceTitle) {
+        this.startTime = startTime;
         this.duration = duration;
-        this.resource = resource;
-        this.user = user;
+        this.resourceTitle = resourceTitle;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "duration")
+    private Date duration;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Duration duration;
+    @Column(name = "resourceTitle")
+    private String resourceTitle;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Resource resource;
+    @Column(name = "startTime")
+    private Date startTime;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Start start;
-
-    @OneToOne(mappedBy = "event")
-    private User user;
 }

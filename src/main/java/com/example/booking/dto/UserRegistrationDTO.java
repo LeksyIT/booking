@@ -10,8 +10,10 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResourceDTO {
+public class UserRegistrationDTO {
     private long Id;
+    private String userLogin;
+    private String userPassword;
     private Event event;
-    private String resourceTitle;
+    private Collection<RoleDTO> userRoles;
 }
