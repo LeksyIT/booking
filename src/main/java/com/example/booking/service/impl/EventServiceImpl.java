@@ -23,7 +23,19 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Long acquire(EventDTO eventDTO) {
-        return null;
+        Event EVENT = eventMapper.toEvent(eventDTO);
+        List<Event> eventsByTitle = eventRepository.getByResourceTitle(eventDTO.getResourceTitle());
+        if (eventRepository.findByDateInstanceDuration(
+                EVENT.getResourceTitle(),
+                EVENT.getStartTime(),
+                EVENT.getEndTime()
+        ).size() > 0) {
+            //TODO:Сделать эксепшин хендлер
+            throw new RuntimeException();
+        }
+        updateEvent(eventDTO);
+
+        return eventDTO.getId();
     }
 
     @Override
@@ -40,6 +52,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Specification<Event> settingSpecification() {
+        //TODO:to realize normal specification
         return Specification.where(null);
     }
 
@@ -50,26 +63,36 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean release(Long id) {
+        //TODO:to realize
         return false;
     }
 
     @Override
+    public void deleteEvent(Long id) {
+        eventRepository.delete(eventRepository.findById(id).orElseThrow());
+    }
+
+    @Override
     public Event findById(Long id) {
+        //TODO:to realize
         return null;
     }
 
     @Override
     public Event findByUser(String name) {
+        //TODO:to realize
         return null;
     }
 
     @Override
     public Event findByTitle(Long id) {
+        //TODO:to realize
         return null;
     }
 
     @Override
     public Event findByTime(Long id) {
+        //TODO:to realize
         return null;
     }
 }

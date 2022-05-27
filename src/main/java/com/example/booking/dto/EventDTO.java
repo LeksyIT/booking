@@ -3,9 +3,9 @@ package com.example.booking.dto;
 
 import com.example.booking.entity.User;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 @Data
 @AllArgsConstructor
