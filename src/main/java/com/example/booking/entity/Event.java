@@ -3,6 +3,7 @@ package com.example.booking.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,9 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class Event {
 
-    public Event(Date startTime, Date duration,String resourceTitle) {
+    public Event(Date startTime, Date endTime,String resourceTitle) {
         this.startTime = startTime;
-        this.duration = duration;
+        this.endTime = endTime;
         this.resourceTitle = resourceTitle;
     }
 
@@ -24,13 +25,13 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "duration")
-    private Date duration;
+    @Column(name = "end_time")
+    private Date endTime;
 
     @Column(name = "resourceTitle")
     private String resourceTitle;
 
-    @Column(name = "startTime")
+    @Column(name = "start_time")
     private Date startTime;
 
 }
