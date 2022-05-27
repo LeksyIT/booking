@@ -16,7 +16,6 @@ public class Event {
     public Event(Start start, Duration duration, Boolean free, Resource resource, User user) {
         this.start = start;
         this.duration = duration;
-        this.free = free;
         this.resource = resource;
         this.user = user;
     }
@@ -24,9 +23,6 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "free")
-    private boolean free;
 
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

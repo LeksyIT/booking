@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 public class EventDTO {
     private Long id;
-    private boolean free;
     private Duration duration;
     private Resource resource;
     private Start start;
