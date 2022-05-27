@@ -24,13 +24,12 @@ public class EventServiceImpl implements EventService {
     @Override
     public Long acquire(EventDTO eventDTO) {
         Event EVENT = eventMapper.toEvent(eventDTO);
-        List<Event> eventsByTitle = eventRepository.getByResourceTitle(eventDTO.getResourceTitle());
         if (eventRepository.findByDateInstanceDuration(
                 EVENT.getResourceTitle(),
                 EVENT.getStartTime(),
                 EVENT.getEndTime()
         ).size() > 0) {
-            //TODO:Сделать эксепшин хендлер
+            //TODO:Сделать эксепшин хендлер. Сделать разные ошибки
             throw new RuntimeException();
         }
         updateEvent(eventDTO);

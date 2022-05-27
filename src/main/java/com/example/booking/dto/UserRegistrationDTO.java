@@ -11,9 +11,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRegistrationDTO {
-    private long Id;
-    private String userLogin;
-    private String userPassword;
-    private Event event;
+    private String login;
+    private String password;
     private Collection<RoleDTO> userRoles;
 }
