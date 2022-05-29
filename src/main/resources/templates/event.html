@@ -11,28 +11,32 @@
 <body>
 <h3><span th:text="'Login: ' + ${userName}"></span></h3>
 
-<h3>Filter</h3>
+<!--<h3>Filter</h3>-->
 <form th:action="@{/event}" method="get" class="form-horizontal">
-    <input type="hidden" name="size" value="5">
-    <table class="table table-hover">
-        <tr>
-            <th th:each="pageNumber : ${pageNumbers}" th:with="var = ${pageNumber + 1}">
-                <button th:class="${pageNumber == currentPage}? 'btn btn-success' : 'btn btn-info'" type="submit"
-                        th:name="page"
-                        th:value="${pageNumber}"
-                        th:text="${var}">
-                </button>
-            </th>
-        </tr>
-    </table>
+<!--    <input type="hidden" name="size" value="5">-->
+<!--    <table class="table table-hover">-->
+<!--        <tr>-->
+<!--            <th th:each="pageNumber : ${pageNumbers}" th:with="var = ${pageNumber + 1}">-->
+<!--                <button th:class="${pageNumber == currentPage}? 'btn btn-success' : 'btn btn-info'" type="submit"-->
+<!--                        th:name="page"-->
+<!--                        th:value="${pageNumber}"-->
+<!--                        th:text="${var}">-->
+<!--                </button>-->
+<!--            </th>-->
+<!--        </tr>-->
+<!--    </table>-->
     <div style="..." class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input type="date" th:value="${time != null} ? ${time}" name="time" placeholder="date" class="form-control"/>
+        <label>
+            <input type="date" th:value="${time != null} ? ${time}" name="time" placeholder="date" class="form-control"/>
+        </label>
     </div>
     <div style="..." class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input th:value="${title != null} ? ${title}" name="title" placeholder="title"
-               class="form-control"/>
+        <label>
+            <input th:value="${title != null} ? ${title}" name="title" placeholder="title"
+                   class="form-control"/>
+        </label>
     </div>
     <br>
     <div style="..." class="form-group">
