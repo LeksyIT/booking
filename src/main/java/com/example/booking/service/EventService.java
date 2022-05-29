@@ -17,7 +17,9 @@ public interface EventService {
 
     List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable);
 
-    Specification<Event> settingSpecification(String userName, String title, Date time);
+    Specification<Event> standardSettingSpecification(String userName) ;
+
+    Specification<Event> additionalSettingSpecification(String userName, String title, Date time) ;
 
     Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable);
 
@@ -26,4 +28,7 @@ public interface EventService {
     String getUserName(Long id);
 
     void deleteEvent(@PathVariable Long id);
+
+    boolean checkNotValidDate(Date startTime, Date endTime);
+
 }

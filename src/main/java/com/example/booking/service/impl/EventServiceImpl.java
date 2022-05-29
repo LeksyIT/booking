@@ -2,6 +2,8 @@ package com.example.booking.service.impl;
 
 import com.example.booking.dto.EventDTO;
 import com.example.booking.entity.*;
+import com.example.booking.exception.EventBookedException;
+import com.example.booking.exception.NotValidDateException;
 import com.example.booking.mapper.EventMapper;
 import com.example.booking.repository.EventRepository;
 import com.example.booking.service.EventService;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -29,14 +32,16 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Long acquire(EventDTO eventDTO) {
+        if (checkNotValidDate(eventDTO.getStartTime(), eventDTO.getEndTime())) {
+            throw new NotValidDateException();
+        }
         Event EVENT = eventMapper.toEvent(eventDTO);
         if (eventRepository.findByDateInstanceDuration(
                 EVENT.getResourceTitle(),
                 EVENT.getStartTime(),
                 EVENT.getEndTime()
         ).size() > 0) {
-            //TODO:Сделать эксепшин хендлер. Сделать разные ошибки
-            throw new RuntimeException();
+            throw new EventBookedException();
         }
         updateEvent(eventDTO);
 
@@ -57,7 +62,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Specification<Event> settingSpecification(String userName, String title, Date time) {
+    public Specification<Event> additionalSettingSpecification(String userName, String title, Date time) {
         Specification<Event> specification = Specification.where(null);
         specification = specification.and(EventSpecification.userNameEqual(userName));
         if (title != null) {
@@ -66,6 +71,13 @@ public class EventServiceImpl implements EventService {
         if (time != null) {
             specification = specification.and(EventSpecification.timeEqual(time));
         }
+        return specification;
+    }
+
+    @Override
+    public Specification<Event> standardSettingSpecification(String userName) {
+        Specification<Event> specification = Specification.where(null);
+        specification = specification.and(EventSpecification.userNameEqual(userName));
         return specification;
     }
 
@@ -79,8 +91,8 @@ public class EventServiceImpl implements EventService {
 
         List<Integer> pageNumbers = new ArrayList<>();
         int start = Math.max(current - 5, 0);
-        int end = Math.min(totalPages,start+11);
-        for (int i = start;i<end;i++){
+        int end = Math.min(totalPages, start + 11);
+        for (int i = start; i < end; i++) {
             pageNumbers.add(i);
         }
         return pageNumbers;
@@ -94,6 +106,15 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteEvent(Long id) {
         eventRepository.delete(eventRepository.findById(id).orElseThrow());
+    }
+
+    @Override
+    public boolean checkNotValidDate(Date startTime, Date endTime) {
+        return startTime.after(new java.util.Date(2050, Calendar.JANUARY, 1)) ||
+                startTime.before(new java.util.Date(2022, Calendar.JANUARY, 1)) ||
+                endTime.after(new java.util.Date(2050, Calendar.JANUARY, 1)) ||
+                endTime.before(new java.util.Date(2022, Calendar.JANUARY, 1)) ||
+                startTime.after(endTime);
     }
 
 }

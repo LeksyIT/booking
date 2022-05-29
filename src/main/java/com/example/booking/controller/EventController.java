@@ -5,7 +5,6 @@ import com.example.booking.entity.Event;
 import com.example.booking.service.UserService;
 import com.example.booking.service.impl.EventServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -36,8 +35,8 @@ public class EventController {
                                    Pageable pageable) {
 
 
-        Specification<Event> specification = eventService.settingSpecification(userService.getUserName(), title, time);
-        Page<Event> modelsPages = eventService.getEventWithPagingAndFiltering(specification, pageable);
+        Specification<Event> specification = eventService.standardSettingSpecification(userService.getUserName());
+//        Page<Event> modelsPages = eventService.getEventWithPagingAndFiltering(specification, pageable);
         List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
 
         model.addAttribute(EVENTS, eventDTOList);
@@ -45,8 +44,8 @@ public class EventController {
         model.addAttribute("time", time);
         model.addAttribute("title", title);
         model.addAttribute("userName", userService.getUserName());
-        model.addAttribute("currentPage", pageable.getPageNumber());
-        model.addAttribute("pageNumbers", eventService.preparePageInt(pageable.getPageNumber(), modelsPages.getTotalPages()));
+//        model.addAttribute("currentPage", pageable.getPageNumber());
+//        model.addAttribute("pageNumbers", eventService.preparePageInt(pageable.getPageNumber(), modelsPages.getTotalPages()));
 
         return "event";
     }
@@ -57,6 +56,22 @@ public class EventController {
         model.addAttribute(EVENT, eventDTO);
         eventService.acquire(eventDTO);
         return "redirect:/event";
+    }
+
+    @GetMapping("/filter")
+    public String filterEvent(Model model,
+                              @RequestParam(value = "time", required = false) Date time,
+                              @RequestParam(value = "title", required = false) String title,
+                              EventDTO eventDTO,
+                              Pageable pageable) {
+        Specification<Event> specification = eventService.additionalSettingSpecification(userService.getUserName(), title, time);
+        List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
+        model.addAttribute("userName", userService.getUserName());
+        model.addAttribute("time", time);
+        model.addAttribute("title", title);
+        model.addAttribute(EVENTS, eventDTOList);
+        model.addAttribute(EVENT, eventDTO);
+        return "event";
     }
 
     @GetMapping("/delete/{id}")
