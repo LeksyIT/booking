@@ -14,6 +14,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,21 +57,21 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Specification<Event> settingSpecification(String userName) {
+    public Specification<Event> settingSpecification(String userName, String title, Date time) {
         Specification<Event> specification = Specification.where(null);
-        specification = specification.and(EventSpecification.titleEqual(userName));
+        specification = specification.and(EventSpecification.userNameEqual(userName));
+        if (title != null) {
+            specification = specification.and(EventSpecification.findByTitle(title));
+        }
+        if (time != null) {
+            specification = specification.and(EventSpecification.timeEqual(time));
+        }
         return specification;
     }
 
     @Override
     public Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable) {
         return eventRepository.findAll(specifications, pageable);
-    }
-
-    @Override
-    public boolean release(Long id) {
-        //TODO:to realize
-        return false;
     }
 
     @Override
@@ -95,27 +96,4 @@ public class EventServiceImpl implements EventService {
         eventRepository.delete(eventRepository.findById(id).orElseThrow());
     }
 
-    @Override
-    public Event findById(Long id) {
-        //TODO:to realize
-        return null;
-    }
-
-    @Override
-    public Event findByUser(String name) {
-        //TODO:to realize
-        return null;
-    }
-
-    @Override
-    public Event findByTitle(Long id) {
-        //TODO:to realize
-        return null;
-    }
-
-    @Override
-    public Event findByTime(Long id) {
-        //TODO:to realize
-        return null;
-    }
 }

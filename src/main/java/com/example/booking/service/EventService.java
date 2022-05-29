@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface EventService {
@@ -17,7 +17,7 @@ public interface EventService {
 
     List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable);
 
-    Specification<Event> settingSpecification(String userName);
+    Specification<Event> settingSpecification(String userName, String title, Date time);
 
     Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable);
 
@@ -25,15 +25,5 @@ public interface EventService {
 
     String getUserName(Long id);
 
-    boolean release(Long id);
-
     void deleteEvent(@PathVariable Long id);
-
-    Event findById(Long id);
-
-    Event findByUser(String name);
-
-    Event findByTitle(Long id);
-
-    Event findByTime(Long id);
 }

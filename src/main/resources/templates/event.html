@@ -25,6 +25,21 @@
             </th>
         </tr>
     </table>
+    <div style="..." class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="date" th:value="${time != null} ? ${time}" name="time" placeholder="date" class="form-control"/>
+    </div>
+    <div style="..." class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input th:value="${title != null} ? ${title}" name="title" placeholder="title"
+               class="form-control"/>
+    </div>
+    <br>
+    <div style="..." class="form-group">
+        <div class="col-sm-6 controls">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
 </form>
 <br>
 

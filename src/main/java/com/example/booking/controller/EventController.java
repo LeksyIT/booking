@@ -12,11 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/event" )
+@RequestMapping("/event")
 public class EventController {
 
     private final EventServiceImpl eventService;
@@ -29,16 +30,20 @@ public class EventController {
 
     @GetMapping
     public String showProductsList(Model model,
+                                   @RequestParam(value = "time", required = false) Date time,
+                                   @RequestParam(value = "title", required = false) String title,
                                    EventDTO eventDTO,
                                    Pageable pageable) {
 
 
-        Specification<Event> specification = eventService.settingSpecification(userService.getUserName());
+        Specification<Event> specification = eventService.settingSpecification(userService.getUserName(), title, time);
         Page<Event> modelsPages = eventService.getEventWithPagingAndFiltering(specification, pageable);
         List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
 
         model.addAttribute(EVENTS, eventDTOList);
         model.addAttribute(EVENT, eventDTO);
+        model.addAttribute("time", time);
+        model.addAttribute("title", title);
         model.addAttribute("userName", userService.getUserName());
         model.addAttribute("currentPage", pageable.getPageNumber());
         model.addAttribute("pageNumbers", eventService.preparePageInt(pageable.getPageNumber(), modelsPages.getTotalPages()));
