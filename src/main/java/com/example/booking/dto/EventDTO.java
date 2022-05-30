@@ -1,7 +1,5 @@
 package com.example.booking.dto;
 
-
-import com.example.booking.entity.User;
 import lombok.*;
 
 import java.sql.Date;

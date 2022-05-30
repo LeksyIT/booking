@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -33,6 +34,9 @@ public class EventServiceImpl implements EventService {
     @Override
     public Long acquire(EventDTO eventDTO) {
         if (checkNotValidDate(eventDTO.getStartTime(), eventDTO.getEndTime())) {
+            System.out.println(checkNotValidDate(eventDTO.getStartTime(), eventDTO.getEndTime()));
+            System.out.println(eventDTO.getStartTime());
+            System.out.println(eventDTO.getEndTime());
             throw new NotValidDateException();
         }
         Event EVENT = eventMapper.toEvent(eventDTO);
@@ -110,10 +114,12 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean checkNotValidDate(Date startTime, Date endTime) {
-        return startTime.after(new java.util.Date(2050, Calendar.JANUARY, 1)) ||
-                startTime.before(new java.util.Date(2022, Calendar.JANUARY, 1)) ||
-                endTime.after(new java.util.Date(2050, Calendar.JANUARY, 1)) ||
-                endTime.before(new java.util.Date(2022, Calendar.JANUARY, 1)) ||
+        long currentTime = System.currentTimeMillis();
+        long currentTimePlus20Years = currentTime + 20 * 31536000000L;
+        return startTime.after(new java.util.Date(currentTimePlus20Years)) ||
+                startTime.before(new java.util.Date(currentTime)) ||
+                endTime.after(new java.util.Date(currentTimePlus20Years)) ||
+                endTime.before(new java.util.Date(currentTime)) ||
                 startTime.after(endTime);
     }
 

@@ -1,5 +1,6 @@
 package com.example.booking.advice;
 
+import com.example.booking.exception.EventBookedException;
 import com.example.booking.exception.NotAllFieldsAreFilledInException;
 import com.example.booking.exception.NotValidDateException;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +30,7 @@ public class EventAdvice extends ResponseEntityExceptionHandler {
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value =  NotValidDateException.class )
+    @ExceptionHandler(value =  EventBookedException.class )
     protected ResponseEntity<Object> eventBooked(
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "At this time, another user is logged in to this event. Please choose another time";
