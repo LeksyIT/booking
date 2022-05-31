@@ -23,17 +23,19 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name = "end_time")
-    private Date endTime;
 
     @Column(name = "resource_title")
     private String resourceTitle;
 
+    @Column(name = "user_name")
+    private String userName;
+
     @Column(name = "start_time")
     private Date startTime;
 
-    @Column(name = "user_name")
-    private String userName;
+    @Column(name = "end_time")
+    private Date endTime;
+
+
 
 }

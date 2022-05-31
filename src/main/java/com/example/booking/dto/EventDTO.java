@@ -10,8 +10,8 @@ import java.sql.Date;
 @NoArgsConstructor
 public class EventDTO {
     private Long id;
-    private Date endTime;
     private String resourceTitle;
-    private Date startTime;
     private String userName;
+    private Date endTime;
+    private Date startTime;
 }

@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -34,9 +32,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public Long acquire(EventDTO eventDTO) {
         if (checkNotValidDate(eventDTO.getStartTime(), eventDTO.getEndTime())) {
-            System.out.println(checkNotValidDate(eventDTO.getStartTime(), eventDTO.getEndTime()));
-            System.out.println(eventDTO.getStartTime());
-            System.out.println(eventDTO.getEndTime());
             throw new NotValidDateException();
         }
         Event EVENT = eventMapper.toEvent(eventDTO);
