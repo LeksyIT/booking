@@ -29,8 +29,8 @@ public class EventController {
 
     @GetMapping
     public String showProductsList(Model model,
-                                   @RequestParam(value = "time", required = false) Date time,
-                                   @RequestParam(value = "title", required = false) String title,
+//                                   @RequestParam(value = "time", required = false) Date time,
+//                                   @RequestParam(value = "title", required = false) String title,
                                    EventDTO eventDTO,
                                    Pageable pageable) {
 
@@ -41,8 +41,8 @@ public class EventController {
 
         model.addAttribute(EVENTS, eventDTOList);
         model.addAttribute(EVENT, eventDTO);
-        model.addAttribute("time", time);
-        model.addAttribute("title", title);
+//        model.addAttribute("time", time);
+//        model.addAttribute("title", title);
         model.addAttribute("userName", userService.getUserName());
 //        model.addAttribute("currentPage", pageable.getPageNumber());
 //        model.addAttribute("pageNumbers", eventService.preparePageInt(pageable.getPageNumber(), modelsPages.getTotalPages()));
@@ -55,7 +55,7 @@ public class EventController {
     public String addEvent(Model model, EventDTO eventDTO) {
         model.addAttribute(EVENT, eventDTO);
         eventService.acquire(eventDTO);
-        return "redirect:/event";
+        return REDIRECT_EVENT;
     }
 
     @GetMapping("/filter")
@@ -67,11 +67,11 @@ public class EventController {
         Specification<Event> specification = eventService.additionalSettingSpecification(userService.getUserName(), title, time);
         List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
         model.addAttribute("userName", userService.getUserName());
-        model.addAttribute("time", time);
-        model.addAttribute("title", title);
+////        model.addAttribute("time", time);
+////        model.addAttribute("title", title);
         model.addAttribute(EVENTS, eventDTOList);
         model.addAttribute(EVENT, eventDTO);
-        return "event";
+        return EVENT;
     }
 
     @GetMapping("/delete/{id}")
