@@ -8,8 +8,6 @@ import com.example.booking.service.impl.EventServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -17,16 +15,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/event")
+@RequestMapping("/RestEvent")
 public class EventRestController {
 
     private final EventServiceImpl eventService;
     private final UserService userService;
 
-    private static final String EVENT = "event";
-    private static final String EVENTS = "events";
     private static final String ID = "id";
-    private static final String REDIRECT_EVENT = "redirect:/event";
 
     @GetMapping
     public List<EventDTO> showProductsList(Pageable pageable) {
@@ -51,8 +46,8 @@ public class EventRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable(value = ID) Long id) {
+    public List<EventDTO> deleteStudent(@PathVariable(value = ID) Long id) {
         eventService.deleteEvent(id);
-        return REDIRECT_EVENT;
+        return eventService.getAllEvents();
     }
 }

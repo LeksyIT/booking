@@ -31,4 +31,5 @@ public interface EventService {
 
     boolean checkNotValidDate(Date startTime, Date endTime);
 
+    List<EventDTO> getAllEvents();
 }

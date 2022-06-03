@@ -118,4 +118,9 @@ public class EventServiceImpl implements EventService {
                 startTime.after(endTime);
     }
 
+    @Override
+    public List<EventDTO> getAllEvents() {
+        return eventMapper.toEvenDTO(eventRepository.findAll());
+    }
+
 }
