@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithUserDetails("testUser")
+@WithUserDetails("userTest")
 public class UserAuthTest {
     @Autowired
     private EventController eventController;
@@ -32,6 +32,6 @@ public class UserAuthTest {
         this.mockMvc.perform(get("/event")).
                 andDo(print()).
                 andExpect(authenticated()).
-                andExpect(content().string(containsString("testUser")));
+                andExpect(content().string(containsString("userTest")));
     }
 }

@@ -48,7 +48,7 @@ class LoginControllerTest {
 
     @Test
     void correctLogin() throws Exception {
-        this.mockMvc.perform(formLogin().user("1").password("1")).
+        this.mockMvc.perform(formLogin().user("userTest").password("1")).
                 andDo(print()).
                 andExpect(status().is3xxRedirection()).
                 andExpect(redirectedUrl("/event"));

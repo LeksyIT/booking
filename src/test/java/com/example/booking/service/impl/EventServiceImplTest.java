@@ -44,11 +44,11 @@ class EventServiceImplTest {
     @Test
     void acquireInTheBusyRange() {
         EventDTO test = new EventDTO(1000L,
-                "123",
-                "test1",
+                "name1",
+                "userTest",
                 new Date(System.currentTimeMillis() + 19 * 31536000000L),
                 new Date(System.currentTimeMillis() + 10L));
-        Assert.assertThrows(EventBookedException.class,() -> eventService.acquire(test));
+        Assert.assertThrows(Exception.class,() -> eventService.acquire(test));
     }
 
     @Test
