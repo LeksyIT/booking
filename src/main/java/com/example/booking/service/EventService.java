@@ -15,13 +15,17 @@ public interface EventService {
 
     void updateEvent(EventDTO eventDTO);
 
-    List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable);
+//    List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable);
 
-    Specification<Event> standardSettingSpecification(String userName) ;
+    List<EventDTO> getListEventDTOFromPageableWithSpecificationStandard(String userName, Pageable pageable);
 
-    Specification<Event> additionalSettingSpecification(String userName, String title, Date time) ;
+    List<EventDTO> getListEventDTOFromPageableWithSpecificationAdditional(String userName, String title, Date time, Pageable pageable);
 
-    Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable);
+//    Specification<Event> standardSettingSpecification(String userName) ;
+//
+//    Specification<Event> additionalSettingSpecification(String userName, String title, Date time) ;
+
+//    Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable);
 
     List<Integer> preparePageInt(int current, int totalPages);
 

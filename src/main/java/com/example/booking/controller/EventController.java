@@ -34,10 +34,8 @@ public class EventController {
                                    EventDTO eventDTO,
                                    Pageable pageable) {
 
-
-        Specification<Event> specification = eventService.standardSettingSpecification(userService.getUserName());
 //        Page<Event> modelsPages = eventService.getEventWithPagingAndFiltering(specification, pageable);
-        List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
+        List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageableWithSpecificationStandard(userService.getUserName(), pageable);
 
         model.addAttribute(EVENTS, eventDTOList);
         model.addAttribute(EVENT, eventDTO);
@@ -64,8 +62,7 @@ public class EventController {
                               @RequestParam(value = "title", required = false) String title,
                               EventDTO eventDTO,
                               Pageable pageable) {
-        Specification<Event> specification = eventService.additionalSettingSpecification(userService.getUserName(), title, time);
-        List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageable(specification, pageable);
+        List<EventDTO> eventDTOList = eventService.getListEventDTOFromPageableWithSpecificationAdditional(userService.getUserName(), title, time, pageable);
         model.addAttribute("userName", userService.getUserName());
 ////        model.addAttribute("time", time);
 ////        model.addAttribute("title", title);

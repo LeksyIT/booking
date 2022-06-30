@@ -32,15 +32,16 @@ class EventControllerTest {
 
     @Test
     void testForCheckForWorking() throws Exception {
-        this.mockMvc.perform(get("/event")).
-                andDo(print()).
-                andExpect(status().isOk());
+        this.mockMvc.perform(get("/event"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
     void showProductsList() throws Exception {
         this.mockMvc.
                 perform(get("/")).
-                andDo(print()).andExpect(status().isOk());
+                andDo(print())
+                .andExpect(status().isOk());
     }
 }

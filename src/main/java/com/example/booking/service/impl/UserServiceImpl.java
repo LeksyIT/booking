@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService {
     private final UserRegistrationMapper userRegistrationMapper;
 
     @Override
-    @Transactional
     public User save(UserRegistrationDTO userRegistrationDTO) {
         try {
             User user = new User(userRegistrationDTO.getLogin(),
@@ -57,7 +56,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserRegistrationDTO user = userRegistrationMapper.toUserRegistrationDTO(userRepository.findByLogin(username));
         if (user == null) {

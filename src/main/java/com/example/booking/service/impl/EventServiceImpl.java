@@ -48,42 +48,51 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    @Transactional
     public void updateEvent(EventDTO eventDTO) {
         eventDTO.setUserName(userService.getUserName());
         Event event = eventMapper.toEvent(eventDTO);
         eventRepository.save(event);
     }
 
+//    @Override
+//    public List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable) {
+//        return eventMapper.toEvenDTO(getEventWithPagingAndFiltering(productSpecification, pageable).getContent());
+//    }
+
     @Override
-    public List<EventDTO> getListEventDTOFromPageable(Specification<Event> productSpecification, Pageable pageable) {
-        return eventMapper.toEvenDTO(getEventWithPagingAndFiltering(productSpecification, pageable).getContent());
+    public List<EventDTO> getListEventDTOFromPageableWithSpecificationStandard(String userName, Pageable pageable) {
+        return eventMapper.toEvenDTO(eventRepository.filter(userName, pageable).getContent());
     }
 
     @Override
-    public Specification<Event> additionalSettingSpecification(String userName, String title, Date time) {
-        Specification<Event> specification = Specification.where(null);
-        specification = specification.and(EventSpecification.userNameEqual(userName));
-        if (title != null) {
-            specification = specification.and(EventSpecification.findByTitle(title));
-        }
-        if (time != null) {
-            specification = specification.and(EventSpecification.timeEqual(time));
-        }
-        return specification;
+    public List<EventDTO> getListEventDTOFromPageableWithSpecificationAdditional(String userName, String title, Date time, Pageable pageable) {
+        return eventMapper.toEvenDTO(eventRepository.filter(userName, title, time, pageable).getContent());
     }
 
-    @Override
-    public Specification<Event> standardSettingSpecification(String userName) {
-        Specification<Event> specification = Specification.where(null);
-        specification = specification.and(EventSpecification.userNameEqual(userName));
-        return specification;
-    }
+//    @Override
+//    public Specification<Event> additionalSettingSpecification(String userName, String title, Date time) {
+//        Specification<Event> specification = Specification.where(null);
+//        specification = specification.and(EventSpecification.userNameEqual(userName));
+//        if (title != null) {
+//            specification = specification.and(EventSpecification.findByTitle(title));
+//        }
+//        if (time != null) {
+//            specification = specification.and(EventSpecification.timeEqual(time));
+//        }
+//        return specification;
+//    }
 
-    @Override
-    public Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable) {
-        return eventRepository.findAll(specifications, pageable);
-    }
+//    @Override
+//    public Specification<Event> standardSettingSpecification(String userName) {
+//        Specification<Event> specification = Specification.where(null);
+//        specification = specification.and(EventSpecification.userNameEqual(userName));
+//        return specification;
+//    }
+
+//    @Override
+//    public Page<Event> getEventWithPagingAndFiltering(Specification<Event> specifications, Pageable pageable) {
+//        return eventRepository.findAll(specifications, pageable);
+//    }
 
     @Override
     public List<Integer> preparePageInt(int current, int totalPages) {
