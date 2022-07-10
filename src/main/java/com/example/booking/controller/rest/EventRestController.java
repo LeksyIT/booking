@@ -1,3 +1,4 @@
+/*
 package com.example.booking.controller.rest;
 
 import com.example.booking.dto.EventDTO;
@@ -51,3 +52,4 @@ public class EventRestController {
         return eventService.getAllEvents();
     }
 }
+*/
